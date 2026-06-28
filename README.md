@@ -1,0 +1,2 @@
+# RAIMS
+Inventory management System
