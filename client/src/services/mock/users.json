@@ -1,0 +1,42 @@
+[
+  {
+    "_id": "usr1",
+    "name": "Ré Admin",
+    "email": "admin@re-org.in",
+    "role": "Administrator",
+    "borrowerId": "BRW-0001",
+    "department": "Operations"
+  },
+  {
+    "_id": "usr2",
+    "name": "Meera Iyer",
+    "email": "meera@re-org.in",
+    "role": "ResourceManager",
+    "borrowerId": "BRW-0002",
+    "department": "Inventory"
+  },
+  {
+    "_id": "usr3",
+    "name": "Arjun Nair",
+    "email": "arjun@re-org.in",
+    "role": "ProjectLead",
+    "borrowerId": "BRW-0003",
+    "department": "Robotics"
+  },
+  {
+    "_id": "usr4",
+    "name": "Priya Sharma",
+    "email": "priya@re-org.in",
+    "role": "Researcher",
+    "borrowerId": "BRW-0004",
+    "department": "Electronics"
+  },
+  {
+    "_id": "usr5",
+    "name": "Karthik Rajan",
+    "email": "karthik@re-org.in",
+    "role": "Student",
+    "borrowerId": "BRW-0005",
+    "department": "Computing"
+  }
+]

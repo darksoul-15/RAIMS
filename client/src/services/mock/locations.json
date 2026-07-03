@@ -1,0 +1,7 @@
+[
+  { "_id": "loc1", "name": "Electronics Lab", "type": "Lab", "description": "Soldering stations, benches, and component storage" },
+  { "_id": "loc2", "name": "Robotics Lab", "type": "Lab", "description": "Robot assembly area and motor/actuator inventory" },
+  { "_id": "loc3", "name": "Media Room", "type": "Studio", "description": "Cameras, lighting, and audio equipment" },
+  { "_id": "loc4", "name": "Computing Lab", "type": "Lab", "description": "Workstations, dev kits, and networking gear" },
+  { "_id": "loc5", "name": "Storage Room", "type": "Storage", "description": "Central storage for idle and reserve stock" }
+]

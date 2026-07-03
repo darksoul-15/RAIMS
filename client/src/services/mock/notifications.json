@@ -1,0 +1,112 @@
+[
+  {
+    "_id": "ntf1",
+    "recipient": { "_id": "usr2", "name": "Meera Iyer" },
+    "type": "ApprovalRequest",
+    "message": "Priya Sharma requested 3× Arduino Uno R3 for IoT demo prototyping.",
+    "relatedEntityType": "Request",
+    "relatedEntityId": "req1",
+    "channel": "Dashboard",
+    "read": false,
+    "createdAt": "2026-06-10T08:35:00.000Z"
+  },
+  {
+    "_id": "ntf2",
+    "recipient": { "_id": "usr2", "name": "Meera Iyer" },
+    "type": "ApprovalRequest",
+    "message": "Karthik Rajan requested 1× Soldering Station for capstone PCB assembly.",
+    "relatedEntityType": "Request",
+    "relatedEntityId": "req7",
+    "channel": "Dashboard",
+    "read": false,
+    "createdAt": "2026-06-18T10:35:00.000Z"
+  },
+  {
+    "_id": "ntf3",
+    "recipient": { "_id": "usr5", "name": "Karthik Rajan" },
+    "type": "CheckoutConfirmation",
+    "message": "Your checkout of 2× Raspberry Pi 5 (8GB) has been confirmed. Due back by Aug 1.",
+    "relatedEntityType": "Checkout",
+    "relatedEntityId": "chk4",
+    "channel": "Dashboard",
+    "read": false,
+    "createdAt": "2026-06-14T10:05:00.000Z"
+  },
+  {
+    "_id": "ntf4",
+    "recipient": { "_id": "usr5", "name": "Karthik Rajan" },
+    "type": "OverdueAlert",
+    "message": "OVERDUE: 2× NVIDIA Jetson Nano Dev Kit was due Jun 15. Please return immediately.",
+    "relatedEntityType": "Checkout",
+    "relatedEntityId": "chk2",
+    "channel": "Dashboard",
+    "read": false,
+    "createdAt": "2026-06-16T07:00:00.000Z"
+  },
+  {
+    "_id": "ntf5",
+    "recipient": { "_id": "usr3", "name": "Arjun Nair" },
+    "type": "ReturnReminder",
+    "message": "Reminder: Sony A7 III Camera is due back Jun 25 — 2 days remaining.",
+    "relatedEntityType": "Checkout",
+    "relatedEntityId": "chk1",
+    "channel": "Dashboard",
+    "read": false,
+    "createdAt": "2026-06-23T07:00:00.000Z"
+  },
+  {
+    "_id": "ntf6",
+    "recipient": { "_id": "usr3", "name": "Arjun Nair" },
+    "type": "ApprovalRequest",
+    "message": "Your request for 6× Dynamixel AX-12A Servo was rejected. Reason: all units currently borrowed.",
+    "relatedEntityType": "Request",
+    "relatedEntityId": "req6",
+    "channel": "Dashboard",
+    "read": true,
+    "createdAt": "2026-06-16T08:50:00.000Z"
+  },
+  {
+    "_id": "ntf7",
+    "recipient": { "_id": "usr4", "name": "Priya Sharma" },
+    "type": "CheckoutConfirmation",
+    "message": "Your checkout of 1× Oscilloscope (Rigol DS1054Z) has been confirmed. Due back by Jun 20.",
+    "relatedEntityType": "Checkout",
+    "relatedEntityId": "chk3",
+    "channel": "Dashboard",
+    "read": true,
+    "createdAt": "2026-06-03T09:35:00.000Z"
+  },
+  {
+    "_id": "ntf8",
+    "recipient": { "_id": "usr1", "name": "Ré Admin" },
+    "type": "InventoryUpdate",
+    "message": "3D Printer (Prusa MK4) status changed to Under Maintenance.",
+    "relatedEntityType": "Asset",
+    "relatedEntityId": "ast7",
+    "channel": "Dashboard",
+    "read": true,
+    "createdAt": "2026-06-20T11:00:00.000Z"
+  },
+  {
+    "_id": "ntf9",
+    "recipient": { "_id": "usr1", "name": "Ré Admin" },
+    "type": "OverdueAlert",
+    "message": "OVERDUE: Karthik Rajan has not returned 2× NVIDIA Jetson Nano Dev Kit (due Jun 15).",
+    "relatedEntityType": "Checkout",
+    "relatedEntityId": "chk2",
+    "channel": "Dashboard",
+    "read": false,
+    "createdAt": "2026-06-16T07:00:00.000Z"
+  },
+  {
+    "_id": "ntf10",
+    "recipient": { "_id": "usr4", "name": "Priya Sharma" },
+    "type": "ReturnReminder",
+    "message": "Thanks for returning the Oscilloscope (Rigol DS1054Z) on time. Condition: Good.",
+    "relatedEntityType": "Checkout",
+    "relatedEntityId": "chk3",
+    "channel": "Dashboard",
+    "read": true,
+    "createdAt": "2026-06-18T14:05:00.000Z"
+  }
+]
