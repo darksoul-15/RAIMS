@@ -33,13 +33,19 @@ app.use(express.urlencoded({ extended: false, limit: '10kb' }));
 app.use(mongoSanitize());
 
 // ── Static uploads ───────────────────────────────────────────
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Removed: Cloudinary now handles file serving via HTTPS CDN URLs
 
 // ── Audit logging (mutations only) ───────────────────────────
 app.use('/api/v1', auditLog);
 
+// ── Health check ─────────────────────────────────────────────
+app.get('/api/v1/health', (req, res) => {
+  res.json({ success: true, data: { status: 'ok', env: process.env.NODE_ENV, timestamp: new Date().toISOString() }, message: null, error: null });
+});
+
 // ── Routes ───────────────────────────────────────────────────
-app.use('/api/v1/auth',          authLimiter, require('./routes/authRoutes'));
+// authLimiter only on login/register; refresh + me use apiLimiter (set in authRoutes)
+app.use('/api/v1/auth',          require('./routes/authRoutes'));
 app.use('/api/v1/users',         apiLimiter,  require('./routes/userRoutes'));
 app.use('/api/v1/projects',      apiLimiter,  require('./routes/projectRoutes'));
 app.use('/api/v1/locations',     apiLimiter,  require('./routes/locationRoutes'));
@@ -51,5 +57,15 @@ app.use('/api/v1/notifications', apiLimiter,  require('./routes/notificationRout
 app.use('/api/v1/reports',       apiLimiter,  require('./routes/reportRoutes'));
 
 app.use(errorHandler);
+
+// ── Serve React build in production ─────────────────────────
+if (process.env.NODE_ENV === 'production') {
+  const clientBuild = path.resolve(__dirname, '../client/dist');
+  console.log(`📁 Serving static files from: ${clientBuild}`);
+  app.use(express.static(clientBuild));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(clientBuild, 'index.html'));
+  });
+}
 
 module.exports = app;
