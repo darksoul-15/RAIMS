@@ -1,6 +1,7 @@
 const Asset = require('../models/Asset');
 const generateAssetCode = require('../utils/generateAssetCode');
 
+// Local disk storage → return web path served by the /uploads static route
 const fileUrl = (file) => `/uploads/${file.filename}`;
 
 // Multipart sends nested objects as JSON strings — parse them back

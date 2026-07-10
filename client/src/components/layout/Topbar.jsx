@@ -4,7 +4,6 @@ import NotificationBell from '../notifications/NotificationBell';
 
 const ROLE_LABELS = {
   Administrator:   'Admin',
-  ResourceManager: 'Resource Mgr',
   ProjectLead:     'Project Lead',
   Researcher:      'Researcher',
 };

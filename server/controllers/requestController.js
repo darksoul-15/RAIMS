@@ -26,9 +26,9 @@ const getAssetOrFail = async (assetId, qty, res) => {
   return asset;
 };
 
-// Notify all Admin + ResourceManager users
+// Notify all Admin + ProjectLead users
 const notifyApprovers = async (type, message, entityId) => {
-  const approvers = await User.find({ role: { $in: ['Administrator', 'ResourceManager'] } }).select('_id');
+  const approvers = await User.find({ role: { $in: ['Administrator', 'ProjectLead'] } }).select('_id');
   await Promise.all(approvers.map(u => createNotification({ recipient: u._id, type, message, relatedEntityType: 'Request', relatedEntityId: entityId, sendEmail: true })));
 };
 

@@ -9,7 +9,7 @@ const { upload } = require('../middleware/upload');
 const router = express.Router();
 router.use(protect);
 
-const RM   = ['Administrator', 'ResourceManager'];
+const RM   = ['Administrator'];
 const validation = [
   body('purchaseDate').isISO8601().withMessage('Valid purchase date required'),
   body('purchaseCost').isFloat({ min: 0 }).withMessage('Cost must be a positive number'),

@@ -90,7 +90,7 @@ const AppRoutes = () => (
       <Route
         path="/approvals"
         element={
-          <ProtectedRoute roles={['Administrator', 'ResourceManager', 'ProjectLead']}>
+          <ProtectedRoute roles={['Administrator', 'ProjectLead']}>
             <ApprovalsPage />
           </ProtectedRoute>
         }
@@ -101,7 +101,7 @@ const AppRoutes = () => (
       <Route
         path="/checkout/overdue"
         element={
-          <ProtectedRoute roles={['Administrator', 'ResourceManager', 'ProjectLead']}>
+          <ProtectedRoute roles={['Administrator', 'ProjectLead']}>
             <OverduePage />
           </ProtectedRoute>
         }
@@ -114,11 +114,11 @@ const AppRoutes = () => (
       <Route path="/procurement" element={<ProcurementListPage />} />
       <Route
         path="/procurement/new"
-        element={<ProtectedRoute roles={['Administrator', 'ResourceManager']}><ProcurementFormPage /></ProtectedRoute>}
+        element={<ProtectedRoute roles={['Administrator']}><ProcurementFormPage /></ProtectedRoute>}
       />
       <Route
         path="/procurement/:id/edit"
-        element={<ProtectedRoute roles={['Administrator', 'ResourceManager']}><ProcurementFormPage /></ProtectedRoute>}
+        element={<ProtectedRoute roles={['Administrator']}><ProcurementFormPage /></ProtectedRoute>}
       />
 
       {/* Module 8 — Notifications */}
@@ -128,7 +128,7 @@ const AppRoutes = () => (
       <Route
         path="/reports"
         element={
-          <ProtectedRoute roles={['Administrator', 'ResourceManager']}>
+          <ProtectedRoute roles={['Administrator']}>
             <AnalyticsDashboardPage />
           </ProtectedRoute>
         }

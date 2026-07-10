@@ -12,7 +12,7 @@ const { roleCheck } = require('../middleware/roleCheck');
 const router = express.Router();
 router.use(protect);
 
-const APPROVERS = ['Administrator', 'ResourceManager', 'ProjectLead'];
+const APPROVERS = ['Administrator', 'ProjectLead'];
 
 const createValidation = [
   body('asset').notEmpty().withMessage('Asset is required'),
@@ -21,7 +21,7 @@ const createValidation = [
   body('expectedReturnDate').isISO8601().withMessage('Valid return date required')
 ];
 
-router.get('/',          roleCheck('Administrator', 'ResourceManager'), getRequests);
+router.get('/',          roleCheck('Administrator'), getRequests);
 router.get('/my',        getMyRequests);
 router.get('/approvals', roleCheck(...APPROVERS), getPendingApprovals);
 router.get('/:id',       getRequest);
@@ -29,10 +29,10 @@ router.get('/:id',       getRequest);
 router.post('/',             createValidation, createRequest);
 router.put('/:id/approve',   roleCheck(...APPROVERS), approveRequest);
 router.put('/:id/reject',    roleCheck(...APPROVERS), rejectRequest);
-router.put('/:id/allocate',  roleCheck('Administrator', 'ResourceManager'), allocateRequest);
-router.put('/:id/checkout',  roleCheck('Administrator', 'ResourceManager'), confirmCheckout);
-router.put('/:id/return',    roleCheck('Administrator', 'ResourceManager'), returnRequest);
+router.put('/:id/allocate',  roleCheck('Administrator'), allocateRequest);
+router.put('/:id/checkout',  roleCheck('Administrator'), confirmCheckout);
+router.put('/:id/return',    roleCheck('Administrator'), returnRequest);
 router.put('/:id/cancel',    cancelRequest);
-router.put('/:id/overdue',   roleCheck('Administrator', 'ResourceManager'), markOverdue);
+router.put('/:id/overdue',   roleCheck('Administrator'), markOverdue);
 
 module.exports = router;

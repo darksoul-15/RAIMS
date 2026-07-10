@@ -6,7 +6,7 @@ const { roleCheck } = require('../middleware/roleCheck');
 
 const router = express.Router();
 router.use(protect);
-router.use(roleCheck('Administrator', 'ResourceManager'));
+router.use(roleCheck('Administrator'));
 
 router.get('/asset-summary',      getAssetSummary);
 router.get('/assets-by-category', getAssetsByCategory);

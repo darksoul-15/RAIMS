@@ -28,7 +28,7 @@ const TableSkeleton = () => (
 const OverduePage = () => {
   const { hasRole } = useAuth();
   const toast = useToast();
-  const canManage = hasRole('Administrator', 'ResourceManager');
+  const canManage = hasRole('Administrator');
 
   const [data, setData] = useState({ checkouts: [], total: 0, page: 1, pages: 1 });
   const [loading, setLoading] = useState(true);

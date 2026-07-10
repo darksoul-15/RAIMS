@@ -16,7 +16,6 @@ const LOCATIONS = [
 
 const DEFAULT_USERS = [
   { name: 'Admin User', email: 'admin@re-org.com', password: 'Admin@1234', role: 'Administrator' },
-  { name: 'Resource Manager', email: 'rm@re-org.com', password: 'Admin@1234', role: 'ResourceManager' },
   { name: 'Project Lead', email: 'lead@re-org.com', password: 'Admin@1234', role: 'ProjectLead' },
   { name: 'Researcher One', email: 'researcher@re-org.com', password: 'Admin@1234', role: 'Researcher' }
 ];
@@ -98,19 +97,18 @@ const runSeed = async () => {
     // ── Notifications ──────────────────────────────────────
     const notifCount = await Notification.countDocuments();
     if (notifCount === 0) {
-      const rm  = await User.findOne({ role: 'ResourceManager' });
       const res = await User.findOne({ role: 'Researcher' });
       const pl  = await User.findOne({ role: 'ProjectLead' });
-      if (rm && res && pl) {
+      if (res && pl && adminUser) {
         await Notification.insertMany([
-          { recipient: rm._id,  type: 'ApprovalRequest',      message: 'A new asset request is pending your approval.',           relatedEntityType: 'Request',  channel: 'Dashboard', read: false },
-          { recipient: rm._id,  type: 'OverdueAlert',         message: 'An asset checkout is overdue. Please follow up.',          relatedEntityType: 'Checkout', channel: 'Dashboard', read: false },
+          { recipient: adminUser._id, type: 'ApprovalRequest',      message: 'A new asset request is pending your approval.',           relatedEntityType: 'Request',  channel: 'Dashboard', read: false },
+          { recipient: adminUser._id, type: 'OverdueAlert',         message: 'An asset checkout is overdue. Please follow up.',          relatedEntityType: 'Checkout', channel: 'Dashboard', read: false },
           { recipient: res._id, type: 'CheckoutConfirmation',  message: 'Your checkout has been confirmed.',                        relatedEntityType: 'Checkout', channel: 'Dashboard', read: false },
           { recipient: res._id, type: 'ReturnReminder',        message: 'Your borrowed asset is due back in 2 days.',               relatedEntityType: 'Checkout', channel: 'Dashboard', read: false },
           { recipient: pl._id,  type: 'ApprovalRequest',      message: 'A team member request requires your approval.',            relatedEntityType: 'Request',  channel: 'Dashboard', read: false },
           { recipient: res._id, type: 'ApprovalRequest',      message: 'Your request was rejected. Check notes for details.',      relatedEntityType: 'Request',  channel: 'Dashboard', read: true  },
-          { recipient: rm._id,  type: 'InventoryUpdate',      message: '3D Printer status changed to Under Maintenance.',          relatedEntityType: 'Asset',    channel: 'Dashboard', read: true  },
-          { recipient: adminUser?._id, type: 'OverdueAlert',  message: 'A borrower has not returned an asset past due date.',      relatedEntityType: 'Checkout', channel: 'Dashboard', read: false }
+          { recipient: adminUser._id, type: 'InventoryUpdate',      message: '3D Printer status changed to Under Maintenance.',          relatedEntityType: 'Asset',    channel: 'Dashboard', read: true  },
+          { recipient: adminUser._id, type: 'OverdueAlert',  message: 'A borrower has not returned an asset past due date.',      relatedEntityType: 'Checkout', channel: 'Dashboard', read: false }
         ]);
       }
     }

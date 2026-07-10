@@ -10,7 +10,7 @@ const PAGE_SIZE = 10;
 
 const ProcurementListPage = () => {
   const { hasRole } = useAuth();
-  const canManage = hasRole('Administrator', 'ResourceManager');
+  const canManage = hasRole('Administrator');
 
   const [data, setData] = useState({ procurements: [], total: 0, page: 1, pages: 1 });
   const [loading, setLoading] = useState(true);

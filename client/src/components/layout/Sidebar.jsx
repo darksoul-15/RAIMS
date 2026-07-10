@@ -65,8 +65,10 @@ const Sidebar = () => {
         <NavItem to="/locations" icon={ICONS.locations} label="Locations" />
 
         <SectionLabel>Requests</SectionLabel>
-        <NavItem to="/requests"  icon={ICONS.requests}  label="My Requests" />
-        {hasRole('Administrator', 'ResourceManager', 'ProjectLead') && (
+        {!hasRole('Administrator') && (
+          <NavItem to="/requests"  icon={ICONS.requests}  label="My Requests" />
+        )}
+        {hasRole('Administrator', 'ProjectLead') && (
           <NavItem to="/approvals" icon={ICONS.approvals} label="Approvals" />
         )}
 
@@ -75,7 +77,7 @@ const Sidebar = () => {
 
         <SectionLabel>Operations</SectionLabel>
         <NavItem to="/procurement" icon={ICONS.procurement} label="Procurement" />
-        {hasRole('Administrator', 'ResourceManager') && (
+        {hasRole('Administrator') && (
           <NavItem to="/reports" icon={ICONS.reports} label="Analytics" />
         )}
         {hasRole('Administrator') && (

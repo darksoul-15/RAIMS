@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import * as authService from '../../services/authService';
 
-const ROLES = ['Researcher', 'ProjectLead', 'ResourceManager', 'Administrator'];
+const ROLES = ['Researcher', 'ProjectLead', 'Administrator'];
 
 const UserManagementPage = () => {
   const [users, setUsers] = useState([]);

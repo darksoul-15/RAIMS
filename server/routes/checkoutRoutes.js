@@ -7,11 +7,12 @@ const { roleCheck } = require('../middleware/roleCheck');
 const router = express.Router();
 router.use(protect);
 
-const RM = ['Administrator', 'ResourceManager'];
+const RM  = ['Administrator'];
+const RMP = ['Administrator', 'ProjectLead'];
 
-router.get('/',              roleCheck(...RM), getCheckouts);
+router.get('/',              roleCheck(...RM),  getCheckouts);
 router.get('/active',        getActiveCheckouts);
-router.get('/overdue',       roleCheck(...RM), getOverdueCheckouts);
+router.get('/overdue',       roleCheck(...RMP), getOverdueCheckouts);
 router.put('/scan-overdue',  roleCheck(...RM), scanOverdue);
 router.get('/:id',           getCheckout);
 router.put('/:id/return',    roleCheck(...RM), returnCheckout);

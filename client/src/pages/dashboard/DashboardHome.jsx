@@ -72,10 +72,10 @@ const DashboardHome = () => {
     { to: '/requests/new',icon: 'M12 4v16m8-8H4',                                             label: 'New Request',        description: 'Submit a borrow request' },
     { to: '/search',      icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',              label: 'Search Assets',      description: 'Find assets by keyword' },
     { to: '/checkout',    icon: 'M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4',        label: 'My Borrowings',      description: 'View active checkouts' },
-    ...(hasRole('Administrator', 'ResourceManager', 'ProjectLead') ? [
+    ...(hasRole('Administrator', 'ProjectLead') ? [
       { to: '/approvals', icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',            label: 'Approvals Queue',    description: 'Review pending requests' },
     ] : []),
-    ...(hasRole('Administrator', 'ResourceManager') ? [
+    ...(hasRole('Administrator') ? [
       { to: '/reports',   icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z', label: 'Analytics',  description: 'Reports & utilisation' },
     ] : []),
   ];
@@ -139,7 +139,6 @@ const DashboardHome = () => {
           <p className="text-sm font-semibold text-amber-800">Your access level: {user?.role}</p>
           <p className="text-xs text-amber-700 mt-0.5">
             {user?.role === 'Administrator'   && 'Full system access — manage assets, users, approvals, reports and procurement.'}
-            {user?.role === 'ResourceManager' && 'Manage approvals, checkout verification, inventory updates, and reports.'}
             {user?.role === 'ProjectLead'     && 'Approve team requests, add and edit assets, and monitor overdue borrowings.'}
             {user?.role === 'Researcher'      && 'Browse assets, submit borrow requests, and view your own borrowing history.'}
           </p>

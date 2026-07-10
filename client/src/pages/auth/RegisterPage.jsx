@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
-const ROLES = ['Researcher', 'ProjectLead', 'ResourceManager', 'Administrator'];
+const ROLES = ['Researcher', 'ProjectLead', 'Administrator'];
 
 const RegisterPage = () => {
   const { register } = useAuth();

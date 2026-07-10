@@ -15,7 +15,7 @@ const getLocations = async (req, res, next) => {
 };
 
 // @route   POST /api/v1/locations
-// @access  Administrator | ResourceManager
+// @access  Administrator
 const createLocation = async (req, res, next) => {
   try {
     const { name, type, description } = req.body;
@@ -29,7 +29,7 @@ const createLocation = async (req, res, next) => {
 };
 
 // @route   PUT /api/v1/locations/:id
-// @access  Administrator | ResourceManager
+// @access  Administrator
 const updateLocation = async (req, res, next) => {
   try {
     const location = await Location.findByIdAndUpdate(req.params.id, req.body, {

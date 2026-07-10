@@ -17,8 +17,8 @@ router.use(protect);
 router.get('/', getLocations);
 router.get('/summaries', getLocationSummaries);
 router.get('/:id/assets', getLocationWithAssets);
-router.post('/', roleCheck('Administrator', 'ResourceManager'), createLocation);
-router.put('/:id', roleCheck('Administrator', 'ResourceManager'), updateLocation);
+router.post('/', roleCheck('Administrator'), createLocation);
+router.put('/:id', roleCheck('Administrator'), updateLocation);
 router.delete('/:id', roleCheck('Administrator'), deleteLocation);
 
 module.exports = router;

@@ -1,6 +1,7 @@
 // server/controllers/procurementController.js
 const Procurement = require('../models/Procurement');
 
+// Local disk storage → return web path served by the /uploads static route
 const fileUrl = (file) => `/uploads/${file.filename}`;
 
 const populate = (q) =>
