@@ -5,6 +5,15 @@ const Location = require('./models/Location');
 const Asset = require('./models/Asset');
 const Procurement = require('./models/Procurement');
 const Notification = require('./models/Notification');
+const Request = require('./models/Request');
+const Checkout = require('./models/Checkout');
+
+const monthsAgo = (n, day = 15) => {
+  const d = new Date();
+  d.setMonth(d.getMonth() - n);
+  d.setDate(day);
+  return d;
+};
 
 const LOCATIONS = [
   { name: 'Electronics Lab', type: 'Lab', description: 'Electronics components and equipment' },
@@ -92,6 +101,58 @@ const runSeed = async () => {
         { asset: null,       purchaseDate: '2026-05-18', purchaseCost: 320,    vendorName: 'DigiKey',               vendorContact: 'support@digikey.com',  warrantyPeriod: '',       purchaseOrderRef: 'PO-2026-015', category: 'Electronics', notes: 'Consumables — resistors, capacitors', createdBy: adminUser?._id },
         { asset: null,       purchaseDate: '2026-06-01', purchaseCost: 450,    vendorName: 'Annual Maintenance Corp',vendorContact: '',                    warrantyPeriod: '',       purchaseOrderRef: 'PO-2026-019', category: 'Services',    notes: 'Annual calibration service', createdBy: adminUser?._id }
       ]);
+    }
+
+    // ── Requests + Checkouts (backs Borrowing Trends / Active / Overdue) ──
+    const checkoutCount = await Checkout.countDocuments();
+    if (checkoutCount === 0) {
+      const researcher = await User.findOne({ role: 'Researcher' });
+      const [ast1, ast2, ast3, ast5, ast6] = await Promise.all([
+        Asset.findOne({ assetCode: 'AST-0001' }),
+        Asset.findOne({ assetCode: 'AST-0002' }),
+        Asset.findOne({ assetCode: 'AST-0003' }),
+        Asset.findOne({ assetCode: 'AST-0005' }),
+        Asset.findOne({ assetCode: 'AST-0006' })
+      ]);
+
+      if (researcher && adminUser && ast1 && ast2 && ast3 && ast5 && ast6) {
+        const records = [
+          // Active — matches AST-0003's existing 'Borrowed' status
+          { asset: ast3, purpose: 'Robotics Initiative — servo prototyping', checkoutDate: monthsAgo(0, 5), expectedReturnDate: monthsAgo(-0.5, 20), actualReturnDate: null, status: 'Active' },
+          // Overdue
+          { asset: ast6, purpose: 'Edge-AI model deployment testing', checkoutDate: monthsAgo(1, 3), expectedReturnDate: monthsAgo(0, 3), actualReturnDate: null, status: 'Overdue' },
+          // Returned — spread across past months for a real trend line
+          { asset: ast1, purpose: 'Embedded systems coursework', checkoutDate: monthsAgo(4, 5), expectedReturnDate: monthsAgo(3, 20), actualReturnDate: monthsAgo(3, 18), status: 'Returned' },
+          { asset: ast2, purpose: 'Edge inference benchmarking', checkoutDate: monthsAgo(3, 10), expectedReturnDate: monthsAgo(3, 25), actualReturnDate: monthsAgo(3, 24), status: 'Returned' },
+          { asset: ast5, purpose: 'PCB rework for sensor rig', checkoutDate: monthsAgo(2, 8), expectedReturnDate: monthsAgo(1, 8), actualReturnDate: monthsAgo(1, 5), status: 'Returned' }
+        ];
+
+        for (const r of records) {
+          const request = await Request.create({
+            asset: r.asset._id,
+            requestedBy: researcher._id,
+            quantityRequested: 1,
+            purpose: r.purpose,
+            requestDate: r.checkoutDate,
+            expectedReturnDate: r.expectedReturnDate,
+            status: r.status === 'Returned' ? 'Returned' : 'CheckedOut',
+            approvedBy: adminUser._id,
+            approvalDate: r.checkoutDate
+          });
+          await Checkout.create({
+            request: request._id,
+            asset: r.asset._id,
+            borrower: researcher._id,
+            checkoutDate: r.checkoutDate,
+            expectedReturnDate: r.expectedReturnDate,
+            actualReturnDate: r.actualReturnDate,
+            conditionAtCheckout: 'Good',
+            conditionAtReturn: r.actualReturnDate ? 'Good' : undefined,
+            status: r.status,
+            verifiedBy: r.actualReturnDate ? adminUser._id : undefined
+          });
+        }
+      }
     }
 
     // ── Notifications ──────────────────────────────────────

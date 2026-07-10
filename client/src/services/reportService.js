@@ -7,20 +7,20 @@ export const getAssetSummary = async () => {
 
 export const getAssetsByCategory = async () => {
   const { data } = await api.get('/reports/assets-by-category');
-  return data.data?.categories || [];
+  return data.data || [];
 };
 
 export const getAssetsByStatus = async () => {
   const { data } = await api.get('/reports/assets-by-status');
-  return data.data?.statuses || [];
+  return data.data || [];
 };
 
 export const getProcurementSpend = async () => {
   const { data } = await api.get('/reports/procurement-spend');
-  return data.data?.spend || [];
+  return data.data || [];
 };
 
 export const getBorrowingTrends = async () => {
   const { data } = await api.get('/reports/borrowing-trends');
-  return data.data?.trends || [];
+  return data.data || [];
 };
